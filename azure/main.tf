@@ -28,11 +28,11 @@ provider "azurerm" {
 resource "azurerm_network_interface" "nic" {
   name                = "myNIC"
   location            = "eastus2"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = "mveetil"
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet.id
+    subnet_id                     = "/subscriptions/c32c2cc0-faf3-44b3-b41a-0e5ee014301a/resourceGroups/mveetil/providers/Microsoft.Network/virtualNetworks/AdminServer-vnet/subnets/default"
     private_ip_address_allocation = "Static"
     private_ip_address            = "10.0.0.5"
   }
@@ -41,7 +41,7 @@ resource "azurerm_network_interface" "nic" {
 # Define the Debian 12 virtual machine
 resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "debian12vm"
-  resource_group_name   = azurerm_resource_group.rg.name
+  resource_group_name   = mveetil
   location              = "eastus2"
   size                  = "Standard_B1s" # Change as needed
   admin_username        = "mveetil"
