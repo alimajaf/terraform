@@ -41,7 +41,7 @@ resource "azurerm_network_interface" "nic" {
 # Define the Debian 12 virtual machine
 resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "debian12vm"
-  resource_group_name   = mveetil
+  resource_group_name   = "mveetil"
   location              = "eastus2"
   size                  = "Standard_B1s" # Change as needed
   admin_username        = "mveetil"
