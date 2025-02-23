@@ -3,26 +3,26 @@ provider "azurerm" {
 }
 
 # Define the resource group
-resource "azurerm_resource_group" "rg" {
-  name     = "mveetil"
-  location = "centralindia"
-}
+#resource "azurerm_resource_group" "rg" {
+#  name     = "mveetil"
+#  location = "centralindia"
+#}
 
 # Create a virtual network
-resource "azurerm_virtual_network" "vnet" {
-  name                = "AdminServer-vnet"
-  location            = "eastus2"
-  resource_group_name = azurerm_resource_group.rg.name
-  address_space       = ["10.0.0.0/16"]
-}
+#resource "azurerm_virtual_network" "vnet" {
+#  name                = "AdminServer-vnet"
+#  location            = "eastus2"
+#  resource_group_name = azurerm_resource_group.rg.name
+#  address_space       = ["10.0.0.0/16"]
+#}
 
 # Create a subnet within the VNet
-resource "azurerm_subnet" "subnet" {
-  name                 = "default"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.0.0/24"]
-}
+#resource "azurerm_subnet" "subnet" {
+#  name                 = "default"
+#  resource_group_name  = azurerm_resource_group.rg.name
+#  virtual_network_name = azurerm_virtual_network.vnet.name
+#  address_prefixes     = ["10.0.0.0/24"]
+#}
 
 # Create a private network interface (No Public IP)
 resource "azurerm_network_interface" "nic" {
