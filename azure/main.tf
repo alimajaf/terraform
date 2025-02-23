@@ -5,7 +5,7 @@ provider "azurerm" {
 # Define the resource group
 resource "azurerm_resource_group" "rg" {
   name     = "mveetil"
-  location = "East US 2"
+  location = "centralindia"
 }
 
 # Create a virtual network
