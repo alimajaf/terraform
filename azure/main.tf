@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "rg" {
 # Create a virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "AdminServer-vnet"
-  location            = azurerm_resource_group.rg.location
+  location            = "eastus2"
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/16"]
 }
@@ -27,7 +27,7 @@ resource "azurerm_subnet" "subnet" {
 # Create a private network interface (No Public IP)
 resource "azurerm_network_interface" "nic" {
   name                = "myNIC"
-  location            = azurerm_resource_group.rg.location
+  location            = "eastus2"
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
@@ -42,7 +42,7 @@ resource "azurerm_network_interface" "nic" {
 resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "debian12vm"
   resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
+  location              = "eastus2"
   size                  = "Standard_B1s" # Change as needed
   admin_username        = "mveetil"
   network_interface_ids = [azurerm_network_interface.nic.id]
