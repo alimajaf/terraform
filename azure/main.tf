@@ -4,7 +4,7 @@ provider "azurerm" {
 
 # Define the resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "TFResourceGroup"
+  name     = "mveetil"
   location = "East US 2"
 }
 
