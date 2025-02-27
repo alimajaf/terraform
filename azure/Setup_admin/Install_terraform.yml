@@ -1,0 +1,48 @@
+---
+- name: Install Terraform and Configure Azure Authentication
+  hosts: localhost
+  become: yes
+  vars_files:
+    - group_vars/vault.yml
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name: 
+          - unzip
+          - curl
+          - software-properties-common
+          - git
+          - python3
+        state: present
+        update_cache: yes
+
+    - name: Add HashiCorp GPG key
+      shell: curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+    - name: Add HashiCorp repository
+      shell: echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
+
+    - name: Install Terraform
+      apt:
+        name: terraform
+        state: present
+        update_cache: yes
+
+    - name: Create Terraform Azure authentication file
+      copy:
+        dest: "/home/{{ ansible_user }}/azure-credentials.tfvars"
+        content: |
+          client_id       = "{{ vault_azure_client_id }}"
+          client_secret   = "{{ vault_azure_client_secret }}"
+          subscription_id = "{{ vault_azure_subscription_id }}"
+          tenant_id       = "{{ vault_azure_tenant_id }}"
+        mode: '0600'
+
+    - name: Verify Terraform Installation
+      shell: terraform --version
+      register: terraform_version
+
+    - name: Display Terraform Version
+      debug:
+        msg: "{{ terraform_version.stdout }}"
