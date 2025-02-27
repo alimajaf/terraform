@@ -64,6 +64,20 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "12"
     version   = "latest"
   }
+
+    custom_data = base64encode(<<-EOF
+    #!/bin/bash
+    echo "Setting up network configuration..."
+
+    # Configure the default gateway
+    ip route add default via 10.0.0.4
+
+    # Set up DNS server
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+    echo "Network configuration applied."
+  EOF
+  )
 }
 
 # Output the private IP address for SSH access
